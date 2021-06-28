@@ -8,7 +8,7 @@ Controlador de uso público da plataforma PagHiper para geração de boletos.
 ```
 <?php
 
-use AZ\controller\PagHiperController;
+include_once('PagHiperController.php');
 
 require('../vendor/autoload.php');
 
