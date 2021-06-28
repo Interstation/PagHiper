@@ -5,7 +5,8 @@ Controlador de uso público da plataforma PagHiper para geração de boletos.
 
 ## Geração de Boleto
 
-```<?php
+`
+<?php
 
 use AZ\controller\PagHiperController;
 
@@ -30,4 +31,5 @@ $paghyper->setOrderId('AZ1')
 
 $result = $paghyper->gerarBoleto();
 
-var_dump($result);```
+var_dump($result);
+`
