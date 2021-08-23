@@ -1,4 +1,4 @@
-<?php
+<?php namespace Interstation\PagHiper;
 
 /**
  * Classe para geração de Boletos do PagHiper
@@ -35,7 +35,7 @@
  * @property String $notificationId;
  * @property String $transactionId;
  */
-class PagHiperController
+class PagHiper
 {
 
     private const API_KEY = "";
@@ -66,37 +66,40 @@ class PagHiperController
     private String $notificationId;
     private String $transactionId;
     
-    public function atualizarPedido(){
-        $response = $this->curlInitNotification();
-        $produtos = new PedidoController();
-        $produtos->setId($this->orderId);
-        $produtos->setStatus($response['status_request']['result']);
-        return $produtos->update();
-    }
-
-    public function getHeaders(){
-        $headers = [
+    /**
+	 * Get Headers for the CURL Requests
+	 * 
+	 * @return array
+	 */
+	public function getHeaders() : array {
+        return array(
             "Accept: application/json",
             "Accept-Charset: UTF-8",
             "Accept-Encoding: application/json",
             "Content-Type: application/json;charset=UTF-8"
-        ];
-        return $headers;
+        );
     }
+
 
     public function getNotificationToken()
     {
-        $token = [
-            "apiKey" => $this::API_KEY,
-            "token" => $this::TOKEN,
-            "notification_id" => $this->getNotificationId(),
-            "transaction_id" => $this->getTransactionId()
-        ];
+		try {
+			return \json_encode(
+				array(
+					"apiKey" => $this::API_KEY,
+					"token" => $this::TOKEN,
+					"notification_id" => $this->getNotificationId(),
+					"transaction_id" => $this->getTransactionId()
+				)
+			);
+		} catch (\Exception $exception){
+			throw new \Error($exception->getMessage());
+		} 
+        
 
-        return json_encode($token);
     }
 
-    public function curlInitNotification()
+    public function obterStatusDoBoleto()
     {
         $curl = curl_init();
         curl_setopt_array($curl, [
@@ -111,9 +114,9 @@ class PagHiperController
         return json_decode($result, true);
     }
 
-    public function curlInitToken()
+    public function gerarBoleto()
     {
-        $curl = curl_init();
+		$curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => 'https://api.paghiper.com/transaction/create/',
             CURLOPT_POST => 1,
@@ -124,11 +127,6 @@ class PagHiperController
         ]);
         $result = curl_exec($curl);
         return json_decode($result, true);
-    }
-
-    public function gerarBoleto()
-    {
-        return $this->curlInitToken();
     }
 
     public function setToken()
@@ -484,6 +482,7 @@ class PagHiperController
     public function setItems($items)
     {
         $this->items = $items;
+		$this->setToken();
         return $this;
     }
 

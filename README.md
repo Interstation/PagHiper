@@ -1,8 +1,16 @@
-# PagHiperController
-Controlador de uso público da plataforma PagHiper para geração de boletos.
+# PagHiper
 
-# Exemplo de Uso
+![version](https://img.shields.io/badge/version-0.2-blue) ![php](https://img.shields.io/badge/php-%20>=%207.4-green)  
 
+Tudo o que você precisa para geração de Boletos da plataforma PagHiper utilizando o PHP
+
+# Instalação
+
+```
+composer require interstation/paghiper
+```
+
+# Exemplos
 ## Geração de Boleto
 
 ```
@@ -15,8 +23,8 @@ require('../vendor/autoload.php');
 
 $paghyper = new PagHiperController();
 $paghyper->setOrderId('AZ1')
-->setPayerEmail('mxhugoxm@gmail.com')
-->setPayerName('Hugo Henrique')
+->setPayerEmail('email@email.com')
+->setPayerName('Foo Bar')
 ->setPayerCpfCnpj('01234567890')
 ->setDaysDueDate('4')
 ->setItems([
@@ -26,10 +34,11 @@ $paghyper->setOrderId('AZ1')
         'quantity' => '1',
         'description' => 'Piscina de Bolinha'
     ]
-])
-->setToken();
+]);
 
 $result = $paghyper->gerarBoleto();
 
 var_dump($result);
 ```
+
+> Sinta-se a vontade para colaborar com o projeto
