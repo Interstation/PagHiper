@@ -1,0 +1,29 @@
+{
+    "name": "interstation/paghiper",
+    "description": "Controlador de Gera\u0000\u0000o de Boletos da Plataforma PagHiper",
+    "type": "library",
+	"require":{
+		"php": ">=7.4"
+	},
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Interstation\\PagHiper\\": "src/"
+        }
+    },
+	"autoload-dev": {
+		"psr-4": {
+			"Interstation\\PagHiper\\Tests\\" : "tests/"
+		}
+	},
+    "authors": [
+        {
+            "name": "Hugo Henrique",
+            "email": "mxhugoxm@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta"
+}
