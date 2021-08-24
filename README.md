@@ -7,7 +7,7 @@ Tudo o que você precisa para geração de Boletos da plataforma PagHiper utiliz
 # Instalação
 
 ```
-composer require interstation/paghiper
+composer require interstation/paghiper:dev-main
 ```
 
 # Exemplos
