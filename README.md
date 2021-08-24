@@ -16,12 +16,10 @@ composer require interstation/paghiper:dev-main
 ```
 <?php
 
-include_once('PagHiperController.php');
-
 require('../vendor/autoload.php');
 
 
-$paghyper = new PagHiperController();
+$paghyper = new \Interstation\Paghiper\Paghiper();
 $paghyper->setOrderId('AZ1')
 ->setPayerEmail('email@email.com')
 ->setPayerName('Foo Bar')
