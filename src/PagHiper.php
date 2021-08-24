@@ -59,10 +59,10 @@ class PagHiper
     private Bool $perDayInterest = false;
     private String $latePaymentFine = '';
     private String $typeBankSlip = 'boletoA4';
-    private array $items;
+    private array $items = [];
     private String $notificationUrl = 'http://www.seusite.com/api/notify/paghiper';
     private String $token = "{}";
-    private String $orderId;
+    private ?String $orderId;
     private String $notificationId;
     private String $transactionId;
     
@@ -131,33 +131,37 @@ class PagHiper
 
     public function setToken()
     {
-        $json = [
-            "apiKey" => $this::API_KEY,
-            "order_id" => $this->getOrderId(),
-            "payer_email" => $this->getPayerEmail(),
-            "payer_name" => $this->getPayerName(),
-            "payer_cpf_cnpj" => $this->getPayerCpfCnpj(),
-            "payer_phone" => $this->getPayerName(),
-            "payer_street" => $this->getPayerStreet(),
-            "payer_number" => $this->getPayerNumber(),
-            "payer_complement" => $this->getPayerComplement(),
-            "payer_district" => $this->getPayerDistrict(),
-            "payer_city" => $this->getPayerCity(),
-            "payer_state" => $this->getPayerState(),
-            "payer_zip_code" => $this->getPayerZipCode(),
-            "notification_url" => $this->getNotificationUrl(),
-            "discount_cents" => $this->getDiscountCents(),
-            "shipping_price_cents" => $this->getShippingPriceCents(),
-            "shipping_methods" => $this->getShippingMethods(),
-            "fixed_description" => $this->getFixedDescription(),
-            "type_bank_slip" => $this->getTypeBankSlip(),
-            "days_due_date" => $this->getDaysDueDate(),
-            "late_payment_fine" => $this->getLatePaymentFine(),
-            "per_day_interest" => $this->getPerDayInterest(),
-            "items" => $this->getItems()
-        ];
-        $this->token = json_encode($json, JSON_UNESCAPED_SLASHES);
-        return $this;
+		try {
+			$json = [
+				"apiKey" => $this::API_KEY,
+				"order_id" => $this->getOrderId(),
+				"payer_email" => $this->getPayerEmail(),
+				"payer_name" => $this->getPayerName(),
+				"payer_cpf_cnpj" => $this->getPayerCpfCnpj(),
+				"payer_phone" => $this->getPayerName(),
+				"payer_street" => $this->getPayerStreet(),
+				"payer_number" => $this->getPayerNumber(),
+				"payer_complement" => $this->getPayerComplement(),
+				"payer_district" => $this->getPayerDistrict(),
+				"payer_city" => $this->getPayerCity(),
+				"payer_state" => $this->getPayerState(),
+				"payer_zip_code" => $this->getPayerZipCode(),
+				"notification_url" => $this->getNotificationUrl(),
+				"discount_cents" => $this->getDiscountCents(),
+				"shipping_price_cents" => $this->getShippingPriceCents(),
+				"shipping_methods" => $this->getShippingMethods(),
+				"fixed_description" => $this->getFixedDescription(),
+				"type_bank_slip" => $this->getTypeBankSlip(),
+				"days_due_date" => $this->getDaysDueDate(),
+				"late_payment_fine" => $this->getLatePaymentFine(),
+				"per_day_interest" => $this->getPerDayInterest(),
+				"items" => $this->getItems()
+			];
+			$this->token = json_encode($json, JSON_UNESCAPED_SLASHES);
+			return $this;
+		} catch (\Exception $exception) {
+			throw new \Error($exception->getMessage());
+		}
     }
 
 

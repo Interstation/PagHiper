@@ -1,7 +1,5 @@
 <?php namespace Interstation\PagHiper\Tests;
 
-require \dirname(__DIR__).'/vendor/autoload.php';
-
 class PagHiperTest extends \PHPUnit\Framework\TestCase {
 	
 	protected function assertPreConditions() : void{
